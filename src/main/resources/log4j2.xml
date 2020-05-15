@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error">
+
+    <Properties>
+        <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c{1}:%L -%m%n</Property>
+        <Property name="displayName">GAVGraph</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!-- Flow tracing is most useful with a pattern that shows location.
+                 Below pattern outputs class, line number and method name. -->
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+        </Console>
+        <File name="log" fileName="target/${displayName}.log" append="false"
+              filePattern="${displayName}_%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+        </File>
+
+        <File name="error" fileName="target/${displayName}_error.log" append="false">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.springframework" level="WARN" />
+        <Logger name="uk.ac.newcastle.redhat.gavgraph" level="DEBUG" />
+        <Root level="DEBUG">
+            <AppenderRef ref="log"/>
+            <AppenderRef ref="error"/>
+        </Root>
+    </Loggers>
+</Configuration>
