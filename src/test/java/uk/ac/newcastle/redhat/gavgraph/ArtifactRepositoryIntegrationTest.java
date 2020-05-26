@@ -1,14 +1,12 @@
 package uk.ac.newcastle.redhat.gavgraph;
 
-import org.apache.maven.model.Dependency;
-import org.apache.maven.model.Model;
+import org.apache.maven.model.*;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Repository;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.ac.newcastle.redhat.gavgraph.domain.Artifact;
@@ -19,7 +17,7 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -45,7 +43,7 @@ public class ArtifactRepositoryIntegrationTest {
 
     @Test
     public void testSaveAndLoadArtifact(){
-        Artifact log4j2 = new Artifact(
+        /*Artifact log4j2 = new Artifact(
                 "org.springframework.boot",
                 "spring-boot-starter-log4j2",
                 "2.2.6.release");
@@ -55,7 +53,7 @@ public class ArtifactRepositoryIntegrationTest {
         //artifactRepository.save(log4j2);
         artifactService.addArtifact(log4j2);
         List<Artifact> allByArtifactId = artifactRepository.getAllByArtifactId("spring-boot-starter-log4j2");
-        allByArtifactId.forEach(System.err::println);
+        allByArtifactId.forEach(System.out::println);
         assertThat(artifactRepository.findById(log4j2.getId()))
                 .hasValueSatisfying(artifact -> {
                     assertThat(artifact.getGroupId()).isEqualTo(log4j2.getGroupId());
@@ -67,7 +65,7 @@ public class ArtifactRepositoryIntegrationTest {
                                 assertThat(dependency.getArtifactId()).isEqualTo("log4j-core");
                                 assertThat(dependency.getVersion()).isEqualTo("2.12.1");
                             });
-                });
+                });*/
 
     }
 
@@ -77,22 +75,53 @@ public class ArtifactRepositoryIntegrationTest {
         MavenXpp3Reader pomReader = new MavenXpp3Reader();
         Model model = pomReader.read(new FileReader(pom));
         //System.out.println(model.toString());
-        model.getGroupId();
-        model.getArtifactId();
-        model.getVersion();
 
-        model.getParent();
+        Artifact bean = new Artifact();
 
-        model.getLicenses();
+        String groupId = model.getGroupId();
+        String artifactId = model.getArtifactId();
+        String version = model.getVersion();
 
-        model.getOrganization();
-
+        //dependencies
         List<Dependency> dependencies = model.getDependencies();
-        dependencies.forEach(dependency -> {
+        dependencies.forEach(dependency -> System.out.println("dependency_gav:::" + dependency.getGroupId() + ":"+dependency.getArtifactId() + ":" + dependency.getVersion()));
 
-        });
+        //licenses
+        List<License> licenses = model.getLicenses();
+        licenses.forEach(license -> System.err.println("LICENSE==="+license.getName()+" : "+license.getUrl()));
 
-        Boolean availability = true;
+        //developers
+        List<Developer> developers = model.getDevelopers();
+        System.out.println(developers);
+        developers.forEach(developer -> System.out.println("developer==="+developer.getId()+developer.getEmail()+developer.getName()));
+
+        //parent
+        Parent parent = model.getParent();
+        Optional<Parent> parentOpt = Optional.ofNullable(parent);//不确定parent是否为null
+        String groupIdOrElse = parentOpt.map(Parent::getGroupId).orElse(null);
+        String artifactIdOrElse = parentOpt.map(Parent::getArtifactId).orElse(null);
+        String versionOrElse = parentOpt.map(Parent::getVersion).orElse(null);
+
+        //System.out.println("parent___"+parentOpt.map(uk.ac.newcastle.redhat.gavgraph.domain.Parent::getGroupId)+":"+parent.getArtifactId()+":"+parent.getV ersion());
+
+        //organization
+        Optional<Organization> organizationOpt = Optional.ofNullable(model.getOrganization());
+        String name = organizationOpt.map(Organization::getName).orElse(null);
+        String url = organizationOpt.map(Organization::getUrl).orElse(null);
+        System.out.println(name + " : " + url);
+
+       /* bean.setArtifactId(artifactId);
+        bean.setGroupId(groupId);
+        bean.setVersion(version);*/
+
+        /*bean.setDependencies(dependencies);
+        bean.setDevelopers(developers);
+        bean.setHasDependencies();*/
+
+
+
+        artifactRepository.save(bean);
+
 
 
 

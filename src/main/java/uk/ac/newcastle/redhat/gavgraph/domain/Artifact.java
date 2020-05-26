@@ -2,9 +2,6 @@ package uk.ac.newcastle.redhat.gavgraph.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.neo4j.ogm.annotation.*;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-import uk.ac.newcastle.redhat.gavgraph.domain.relationship.HasDependency;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,19 +16,19 @@ public class Artifact implements Serializable {
     @ApiModelProperty(hidden = true)
     private Long id;
 
-    @ApiModelProperty(value = "groupId of this artifact", required = true, example = "uk.neo4j.graph")
+    @ApiModelProperty(example = "uk.neo4j.graph")
     private String groupId;
 
-    @ApiModelProperty(value = "artifactId of this artifact", required = true, example = "neo4j-graph")
+    @ApiModelProperty(example = "neo4j-graph")
     private String artifactId;
 
-    @ApiModelProperty(value = "version of this artifact", required = true, example = "1.0")
+    @ApiModelProperty(example = "1.0")
     private String version;
 
-    @ApiModelProperty(value = "availability of this artifact", required = true, example = "true")
+    @ApiModelProperty(example = "true")
     private Boolean availability;
 
-    @ApiModelProperty(value = "scope of this artifact", required = true, example = "runtime")
+    @ApiModelProperty(example = "runtime")
     private String scope;
 
     //incoming
@@ -76,43 +73,6 @@ public class Artifact implements Serializable {
         this.availability = availability;
         this.scope = scope;
     }
-
-
-    /*public Artifact(
-            String groupId, String artifactId,
-            String version, Boolean availability,
-            Set<Artifact> dependencies) {
-        this.groupId = groupId;
-        this.artifactId = artifactId;
-        this.version = version;
-        this.dependencies = dependencies;
-        this.availability = availability;
-    }*/
-
-    /*public Artifact(
-            String groupId, String artifactId,
-            String version, Boolean availability,
-            HashSet<Artifact> dependencies,Parent parent,
-            Set<License> licenses, Organization organization,
-            Set<Developer> developers) {
-        this.groupId = groupId;
-        this.artifactId = artifactId;
-        this.version = version;
-        this.dependencies = dependencies;
-        this.availability = availability;
-        this.parent = parent;
-        this.licenses = licenses;
-        this.organization = organization;
-        this.developers = developers;
-    }*/
-
-    /**
-     * depend on a single dependency artifact, so here will be the dependency's groupId, artifactId and version
-     */
-    /*public void dependOn(String groupId,String artifactId,String version){
-        Artifact dependency = new Artifact(groupId, artifactId, version,true, new HashSet<Artifact>());
-        dependencies.add(dependency);
-    }*/
 
     public Long getId() {
         return id;

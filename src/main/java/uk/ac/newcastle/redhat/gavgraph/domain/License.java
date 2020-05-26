@@ -1,8 +1,8 @@
 package uk.ac.newcastle.redhat.gavgraph.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.neo4j.ogm.annotation.*;
-import uk.ac.newcastle.redhat.gavgraph.domain.relationship.HasLicense;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.Collection;
 import java.util.HashSet;

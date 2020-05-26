@@ -33,14 +33,14 @@ public class ArtifactController {
 
     @PostMapping("/create")
     @ApiOperation(value = "Add a new Artifact to the database")
-    @ApiResponses(value = {
+   /* @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Artifact created successfully."),
             @ApiResponse(code = 400, message = "Invalid Artifact provided in request body"),
             @ApiResponse(code = 409, message = "Artifact provided in request body conflicts with an existing Customer"),
             @ApiResponse(code = 500, message = "An unexpected error occurred whilst processing the request")
-    })
+    })*/
     public ResponseEntity<Artifact> create(
-            @RequestBody @ApiParam(value = "JSON representation of an artifact to be added to the database", required = true)
+            @RequestBody @ApiParam(value = "JSON representation of an artifact to be added to the database", required = true,defaultValue = "")
                     Artifact artifact) {
         if (artifact == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -63,7 +63,7 @@ public class ArtifactController {
     @ApiOperation(value = "fetch all artifacts", notes = "return a list of artifacts")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No Content"),
-            @ApiResponse(code = 302, message = "Not Found")
+            @ApiResponse(code = 302, message = "Found")
     })
     public ResponseEntity<List<Artifact>> findAll(){
         List<Artifact> artifacts;
@@ -74,7 +74,7 @@ public class ArtifactController {
             //log.fatal("Exception occurs while retrieving all artifacts : " + e.getMessage());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(artifacts,HttpStatus.FOUND);
+        return new ResponseEntity<>(artifacts,HttpStatus.OK);
     }
     @GetMapping("/{id}")
     @ApiOperation(value = "find artifact by id",notes = "return an artifact with certain id")
