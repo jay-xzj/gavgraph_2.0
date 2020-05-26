@@ -2,6 +2,7 @@ package uk.ac.newcastle.redhat.gavgraph.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.neo4j.ogm.annotation.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import uk.ac.newcastle.redhat.gavgraph.domain.relationship.HasDependency;
 
 import java.io.Serializable;
@@ -18,14 +19,19 @@ public class Artifact implements Serializable {
     @ApiModelProperty(hidden = true)
     private Long id;
 
+    @ApiModelProperty(value = "groupId of this artifact", required = true, example = "uk.neo4j.graph")
     private String groupId;
 
+    @ApiModelProperty(value = "artifactId of this artifact", required = true, example = "neo4j-graph")
     private String artifactId;
 
+    @ApiModelProperty(value = "version of this artifact", required = true, example = "1.0")
     private String version;
 
+    @ApiModelProperty(value = "availability of this artifact", required = true, example = "true")
     private Boolean availability;
 
+    @ApiModelProperty(value = "scope of this artifact", required = true, example = "runtime")
     private String scope;
 
     //incoming
