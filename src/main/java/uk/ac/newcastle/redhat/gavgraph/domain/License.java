@@ -1,30 +1,40 @@
 package uk.ac.newcastle.redhat.gavgraph.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.neo4j.ogm.annotation.*;
 import uk.ac.newcastle.redhat.gavgraph.domain.relationship.HasLicense;
 
 import java.util.Collection;
+import java.util.HashSet;
 
-@NodeEntity(label = "LICENSE")
+@NodeEntity
 public class License {
 
-    @Id
-    @GeneratedValue
-    @Index
+    //automatically configured as graphId
+    @ApiModelProperty(hidden = true)
     private Long id;
 
-    @Property(name = "name")
     private String name;
 
-    @Property(name = "url")
     private String url;
 
-    @Property(name = "distribution")
     private String distribution;
 
     //license_incoming
     @Relationship(type = "HAS_LICENSE",direction = Relationship.INCOMING)
-    private Collection<HasLicense> hasLicenses;
+    @ApiModelProperty(hidden = true)
+    private Collection<Artifact> artifacts;
+
+    public License() {
+        this.artifacts = new HashSet<>();
+    }
+
+    public License(String name, String url, String distribution) {
+        this();
+        this.name = name;
+        this.url = url;
+        this.distribution = distribution;
+    }
 
     public Long getId() {
         return id;
@@ -42,7 +52,22 @@ public class License {
         return distribution;
     }
 
-    public Collection<HasLicense> getHasLicenses() {
-        return hasLicenses;
+    public Collection<Artifact> getArtifacts() {
+        return artifacts;
+    }
+
+    @Override
+    public String toString() {
+        return "License{" +
+                "id=" + getId() +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", distribution='" + distribution + '\'' +
+                ", artifacts=" + artifacts.size() +
+                '}';
+    }
+
+    public void updateFrom(License license){
+        this.name = license.name;
     }
 }

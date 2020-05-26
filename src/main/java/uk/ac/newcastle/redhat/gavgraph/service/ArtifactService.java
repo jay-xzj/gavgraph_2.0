@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ArtifactService {
 
-    List<Artifact> retrieveAllArtifacts();
+    List<Artifact> findAll();
 
-    Artifact addArtifact(Artifact artifact);
+    Artifact save(Artifact artifact);
 }

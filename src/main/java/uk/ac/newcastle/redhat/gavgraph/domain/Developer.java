@@ -2,21 +2,38 @@ package uk.ac.newcastle.redhat.gavgraph.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.neo4j.ogm.annotation.*;
+import uk.ac.newcastle.redhat.gavgraph.domain.relationship.HasDeveloper;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @NodeEntity
-public class Organization {
+public class Developer {
+
+    /*@Id @GeneratedValue @Index*/
     @ApiModelProperty(hidden = true)
     private Long id;
 
     private String name;
 
+    private String email;
+
     private String url;
 
-    @Relationship(type = "HAS_ORG",direction = Relationship.INCOMING)
+    @Relationship(type = "DEVELOPED_BY", direction = Relationship.INCOMING)
     @ApiModelProperty(hidden = true)
     private Set<Artifact> artifacts;
+
+    public Developer() {
+        this.artifacts = new HashSet<>();
+    }
+
+    public Developer(String name, String email, String url) {
+        this();
+        this.name = name;
+        this.email = email;
+        this.url = url;
+    }
 
     public Long getId() {
         return id;
@@ -24,6 +41,10 @@ public class Organization {
 
     public String getName() {
         return name;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getUrl() {
@@ -36,15 +57,16 @@ public class Organization {
 
     @Override
     public String toString() {
-        return "Organization{" +
-                "id='" + getId() + '\'' +
+        return "Developer{" +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 ", url='" + url + '\'' +
                 ", artifacts=" + artifacts.size() +
                 '}';
     }
 
-    public void updateFrom(Organization organization){
-        this.name = organization.name;
+    public void updateFrom(Developer developer){
+        this.email = developer.getEmail();
     }
 }

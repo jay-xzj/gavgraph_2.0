@@ -15,12 +15,12 @@ public class ArtifactServiceImpl implements ArtifactService {
     private ArtifactRepository artifactRepository;
 
     @Override
-    public List<Artifact> retrieveAllArtifacts() {
+    public List<Artifact> findAll() {
         return (List<Artifact>) artifactRepository.findAll();
     }
 
     @Override
-    public Artifact addArtifact(Artifact artifact) {
+    public Artifact save(Artifact artifact) {
         return artifactRepository.save(artifact);
     }
 }

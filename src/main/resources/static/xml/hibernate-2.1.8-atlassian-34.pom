@@ -17,6 +17,11 @@
     <requireJavaVersion>1.6.0</requireJavaVersion>
   </properties>
 
+    <organization>
+        <name>Jboss</name>
+        <url>www.goole.com</url>
+    </organization>
+
   <scm>
     <connection>scm:git:git@bitbucket.org:atlassian/hibernate-2.1.8.git</connection>
     <developerConnection>scm:git:git@bitbucket.org:atlassian/hibernate-2.1.8.git</developerConnection>
@@ -24,13 +29,13 @@
     <tag>hibernate-2.1.8-atlassian-34</tag>
   </scm>
 
-  <licenses>
+ <!-- <licenses>
     <license>
       <name>LGPL 2.1 License</name>
       <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
       <distribution>repo</distribution>
     </license>
-  </licenses>
+  </licenses>-->
 
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -244,7 +249,7 @@
         </profile>
     </profiles>
 
-  <dependencies>
+  <!--<dependencies>
     <dependency>
       <groupId>c3p0</groupId>
       <artifactId>c3p0</artifactId>
@@ -300,7 +305,7 @@
     <dependency>
       <groupId>jcs</groupId>
       <artifactId>jcs</artifactId>
-      <!--<version>1.0-dev</version>-->
+      &lt;!&ndash;<version>1.0-dev</version>&ndash;&gt;
       <version>1.3</version>
       <optional>true</optional>
     </dependency>
@@ -341,7 +346,7 @@
       <optional>true</optional>
     </dependency>
 
-    <!-- test -->
+    &lt;!&ndash; test &ndash;&gt;
     <dependency>
       <groupId>hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
@@ -354,7 +359,7 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-  </dependencies>
+  </dependencies>-->
 
 </project>
 

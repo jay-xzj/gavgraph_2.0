@@ -1,4 +1,4 @@
-package uk.ac.newcastle.redhat.gavgraph.web.rest;
+package uk.ac.newcastle.redhat.gavgraph.controller;
 
 import org.neo4j.ogm.annotation.*;
 import uk.ac.newcastle.redhat.gavgraph.domain.Artifact;

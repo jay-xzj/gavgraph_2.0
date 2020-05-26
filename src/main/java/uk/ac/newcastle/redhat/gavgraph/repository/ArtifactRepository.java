@@ -25,4 +25,6 @@ public interface ArtifactRepository extends Neo4jRepository<Artifact, Long> {
     @Query("MATCH (a:Artifact) RETURN a ")
     List<Artifact> getAllByArtifactId(String artifactId);
 
+
+
 }

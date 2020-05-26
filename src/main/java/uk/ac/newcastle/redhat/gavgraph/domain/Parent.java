@@ -1,30 +1,38 @@
 package uk.ac.newcastle.redhat.gavgraph.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.neo4j.ogm.annotation.*;
 import uk.ac.newcastle.redhat.gavgraph.domain.relationship.HasParent;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
-@NodeEntity(label = "PARENT")
+@NodeEntity
 public class Parent {
-
-    @Id
-    @GeneratedValue
-    @Index
+    @ApiModelProperty(hidden = true)
     private Long id;
 
-    @Property(name = "name")
     private String groupId;
 
-    @Property(name = "artifactId")
     private String artifactId;
 
-    @Property(name = "version")
     private String version;
 
     @Relationship(type = "HAS_PARENT",direction = Relationship.INCOMING)
-    private Set<HasParent> hasParents;
+    @ApiModelProperty(hidden = true)
+    private Set<Artifact> artifacts;
+
+    public Parent() {
+        this.artifacts = new HashSet<>();
+    }
+
+    public Parent(String groupId, String artifactId, String version) {
+        this();
+        this.groupId = groupId;
+        this.artifactId = artifactId;
+        this.version = version;
+    }
 
     public Long getId() {
         return id;
@@ -42,7 +50,25 @@ public class Parent {
         return version;
     }
 
-    public Set<HasParent> getHasParents() {
-        return hasParents;
+    public Set<Artifact> getArtifacts() {
+        return artifacts;
     }
+
+    @Override
+    public String toString() {
+        return "Parent{" +
+                "id=" + getId() +
+                ", groupId='" + groupId + '\'' +
+                ", artifactId='" + artifactId + '\'' +
+                ", version='" + version + '\'' +
+                ", artifacts=" + artifacts.size() +
+                '}';
+    }
+
+    public void updateFrom(Parent parent){
+        this.groupId = parent.groupId;
+        this.artifactId = parent.artifactId;
+        this.version = parent.version;
+    }
+
 }
