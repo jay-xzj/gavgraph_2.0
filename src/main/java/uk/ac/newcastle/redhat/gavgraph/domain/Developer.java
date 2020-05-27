@@ -68,6 +68,8 @@ public class Developer {
     }
 
     public void updateFrom(Developer developer){
-        this.email = developer.getEmail();
+        this.name = developer.name;
+        this.email = developer.email;
+        this.url = developer.url;
     }
 }

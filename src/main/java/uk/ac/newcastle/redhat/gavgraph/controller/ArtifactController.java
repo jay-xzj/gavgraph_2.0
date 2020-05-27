@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/artifacts")
-@Api(value = "Artifact API", description = "Artifact API for CRUD")
+//@Api(value = "Artifact API", description = "Artifact API for CRUD")
 public class ArtifactController {
 
     @Resource
@@ -76,7 +76,7 @@ public class ArtifactController {
         }
         return new ResponseEntity<>(artifacts,HttpStatus.OK);
     }
-    @GetMapping("/{id}")
+    @GetMapping("findById/{id}")
     @ApiOperation(value = "find artifact by id",notes = "return an artifact with certain id")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "no content"),
@@ -94,6 +94,54 @@ public class ArtifactController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(artifact,HttpStatus.FOUND);
+    }
+
+    @GetMapping("findByGroupId/{groupId}")
+    public ResponseEntity<List<Artifact>> findByGroupId(@PathVariable String groupId){
+        List<Artifact> artifacts = null;
+        try{
+            artifacts = artifactService.findByGroupId(groupId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(artifacts, HttpStatus.OK);
+    }
+
+    @GetMapping("findArtifactId/{artifactId}")
+    public ResponseEntity<List<Artifact>> findArtifactId(@PathVariable String artifactId){
+        List<Artifact> artifacts = null;
+        try{
+            artifacts = artifactService.findArtifactId(artifactId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(artifacts, HttpStatus.OK);
+    }
+
+    @GetMapping("findArtifactIdLike/{artifactId}")
+    public ResponseEntity<List<Artifact>> findArtifactIdLike(@PathVariable String artifactId){
+        List<Artifact> artifacts = null;
+        try{
+            artifacts = artifactService.findArtifactIdLike(artifactId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(artifacts, HttpStatus.OK);
+    }
+
+    @GetMapping("findGroupIdLike/{groupId}")
+    public ResponseEntity<List<Artifact>> findGroupIdLike(@PathVariable @ApiParam(defaultValue = "redhat-7") String groupId){
+        List<Artifact> artifacts = null;
+        try{
+            artifacts = artifactService.findGroupIdLike(groupId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(artifacts, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

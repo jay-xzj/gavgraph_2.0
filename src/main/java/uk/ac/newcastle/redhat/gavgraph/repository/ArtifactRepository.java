@@ -22,9 +22,18 @@ public interface ArtifactRepository extends Neo4jRepository<Artifact, Long> {
     List<Artifact> findAllDependenciesByArtifactId(String artifactId);
 
 
-    @Query("MATCH (a:Artifact) RETURN a ")
+    /*@Query("MATCH (a:Artifact) RETURN a ")
+    List<Artifact> getAllByArtifactId(String artifactId);*/
+
+    //@Query("MATCH (a:Artifact) WHERE a.groupId = $groupId RETURN a")
+    List<Artifact> getAllByGroupId(String groupId);
+
+    //@Query("MATCH (a:Artifact) WHERE a.artifactId = $artifactId RETURN a")
     List<Artifact> getAllByArtifactId(String artifactId);
 
+    //@Query("MATCH (a:Artifact) WHERE a.artifactId CONTAINS $artifactId RETURN a")
+    List<Artifact> getAllByArtifactIdContains(String artifactId);
 
-
+    //@Query("MATCH (a:Artifact) WHERE a.groupId CONTAINS $groupId RETURN a")
+    List<Artifact> getALlByGroupIdContains(String groupId);
 }

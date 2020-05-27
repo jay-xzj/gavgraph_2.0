@@ -69,5 +69,6 @@ public class License {
 
     public void updateFrom(License license){
         this.name = license.name;
+        this.url = license.url;
     }
 }

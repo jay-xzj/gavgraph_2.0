@@ -46,5 +46,6 @@ public class Organization {
 
     public void updateFrom(Organization organization){
         this.name = organization.name;
+        this.url = organization.url;
     }
 }

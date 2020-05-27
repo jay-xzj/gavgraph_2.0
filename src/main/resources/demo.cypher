@@ -1,0 +1,16 @@
+CREATE
+  (`0` :Artifact {groupId:"neo4j",artifactId:"neo4j",version:"1.2.3",availability:true}) ,
+  (`1` :Artifact {groupId:"neo4j",artifactId:"neo4j-core",version:"1.2.3",availability:true}) ,
+  (`2` :Artifact {groupId:"lucene",artifactId:"lucene-core",version:"5.0",availability:true}) ,
+  (`3` :Artifact {groupId:"neo4j",artifactId:"neo4j-ui",version:"1.2.3",availability:true}) ,
+  (`5` :parent {groupId:"redhat",artifactId:"redhat-7",version:"7.0"}) ,
+  (`6` :license {name:"MIT-2.0",url:"www.mit-license-home.com",distribution:"NAN"}) ,
+  (`7` :organization {name:"redhat",url:"redhat-7.org"}) ,
+  (`8` :developer {name:"Jason Zack",email:"jason@gmail.com",url:"json.com"}) ,
+  (`0`)-[:`DEPEND_ON` ]->(`1`),
+  (`0`)-[:`DEPEND_ON` ]->(`2`),
+  (`0`)-[:`DEPEND_ON` ]->(`3`),
+  (`0`)-[:`HAS_PARENT` ]->(`5`),
+  (`0`)-[:`HAS_LICENSE` ]->(`6`),
+  (`0`)-[:`HAS_ORG` ]->(`7`),
+  (`0`)-[:`DEVELOPED_BY` ]->(`8`)

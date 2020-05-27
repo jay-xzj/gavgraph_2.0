@@ -9,4 +9,12 @@ public interface ArtifactService {
     List<Artifact> findAll();
 
     Artifact save(Artifact artifact);
+
+    List<Artifact> findByGroupId(String groupId);
+
+    List<Artifact> findArtifactId(String artifactId);
+
+    List<Artifact> findArtifactIdLike(String artifactId);
+
+    List<Artifact> findGroupIdLike(String groupId);
 }
