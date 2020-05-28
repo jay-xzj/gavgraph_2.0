@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import org.neo4j.ogm.config.ClasspathConfigurationSource;
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -29,14 +28,14 @@ import java.io.IOException;
 @EnableTransactionManagement
 @EnableNeo4jRepositories(basePackages= GavGraphConstants.BASE_PACKAGE)
 @SpringBootApplication(scanBasePackages = GavGraphConstants.BASE_PACKAGE)
-public class GavgraphApplication {
-    private static Logger logger = LogManager.getLogger(GavgraphApplication.class.getName());
+public class GavGraphApplication {
+    private static Logger logger = LogManager.getLogger(GavGraphApplication.class.getName());
     private static final Marker SERVER_START_MARKER = MarkerManager.getMarker("SERVER_START");
 
 
     public static void main(String[] args) {
         logger.info(SERVER_START_MARKER,"===========GAVGraphApplication is starting!===========");
-        SpringApplication.run(GavgraphApplication.class, args);
+        SpringApplication.run(GavGraphApplication.class, args);
         logger.info(SERVER_START_MARKER,"=============GAVGraphApplication started!=============");
     }
 
