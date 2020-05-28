@@ -34,12 +34,6 @@ public class ArtifactController {
 
     @PostMapping("/create")
     @ApiOperation(value = "Add a new Artifact to the database")
-   /* @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Artifact created successfully."),
-            @ApiResponse(code = 400, message = "Invalid Artifact provided in request body"),
-            @ApiResponse(code = 409, message = "Artifact provided in request body conflicts with an existing Customer"),
-            @ApiResponse(code = 500, message = "An unexpected error occurred whilst processing the request")
-    })*/
     public ResponseEntity<Artifact> create(
             @RequestBody @ApiParam(value = "JSON representation of an artifact to be added to the database", required = true)
                     Artifact artifact) {
@@ -69,7 +63,7 @@ public class ArtifactController {
     public ResponseEntity<List<Artifact>> findAll(){
         List<Artifact> artifacts;
         try {
-            artifacts = artifactService.findAll();
+            artifacts = artifactService.findAllZeroDepth();
         }catch (Exception e){
             e.printStackTrace();
             //log.fatal("Exception occurs while retrieving all artifacts : " + e.getMessage());

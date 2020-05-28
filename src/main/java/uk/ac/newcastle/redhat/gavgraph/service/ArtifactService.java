@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ArtifactService {
 
-    List<Artifact> findAll();
+    List<Artifact> findAllZeroDepth();
 
     Artifact save(Artifact artifact);
 

@@ -15,8 +15,8 @@ public class ArtifactServiceImpl implements ArtifactService {
     private ArtifactRepository artifactRepository;
 
     @Override
-    public List<Artifact> findAll() {
-        return (List<Artifact>) artifactRepository.findAll();
+    public List<Artifact> findAllZeroDepth() {
+        return (List<Artifact>) artifactRepository.findAll(0);
     }
 
     @Override
