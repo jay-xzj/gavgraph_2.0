@@ -1,9 +1,10 @@
 package uk.ac.newcastle.redhat.gavgraph.controller;
 
 
-import io.swagger.annotations.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +41,7 @@ public class ArtifactController {
             @ApiResponse(code = 500, message = "An unexpected error occurred whilst processing the request")
     })*/
     public ResponseEntity<Artifact> create(
-            @RequestBody @ApiParam(value = "JSON representation of an artifact to be added to the database", required = true,defaultValue = "")
+            @RequestBody @ApiParam(value = "JSON representation of an artifact to be added to the database", required = true)
                     Artifact artifact) {
         if (artifact == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -76,6 +77,7 @@ public class ArtifactController {
         }
         return new ResponseEntity<>(artifacts,HttpStatus.OK);
     }
+
     @GetMapping("findById/{id}")
     @ApiOperation(value = "find artifact by id",notes = "return an artifact with certain id")
     @ApiResponses(value = {
