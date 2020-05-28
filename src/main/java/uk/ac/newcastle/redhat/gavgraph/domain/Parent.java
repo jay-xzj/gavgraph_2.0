@@ -1,8 +1,11 @@
 package uk.ac.newcastle.redhat.gavgraph.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.neo4j.ogm.annotation.*;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -64,9 +67,9 @@ public class Parent {
     }
 
     public void updateFrom(Parent parent){
-        this.groupId = parent.groupId;
-        this.artifactId = parent.artifactId;
-        this.version = parent.version;
+        this.groupId = Optional.ofNullable(parent.groupId).orElse(this.groupId);
+        this.artifactId = Optional.ofNullable(parent.artifactId).orElse(this.artifactId);
+        this.version = Optional.ofNullable(parent.version).orElse(this.version);
     }
 
 }

@@ -6,6 +6,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @NodeEntity
@@ -68,8 +69,8 @@ public class Developer {
     }
 
     public void updateFrom(Developer developer){
-        this.name = developer.name;
-        this.email = developer.email;
-        this.url = developer.url;
+        this.name = Optional.ofNullable(developer.name).orElse(this.name);
+        this.email = Optional.ofNullable(developer.email).orElse(this.email);
+        this.url = Optional.ofNullable(developer.url).orElse(this.url);
     }
 }

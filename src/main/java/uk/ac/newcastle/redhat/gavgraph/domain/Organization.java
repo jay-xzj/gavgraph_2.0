@@ -1,8 +1,10 @@
 package uk.ac.newcastle.redhat.gavgraph.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.neo4j.ogm.annotation.*;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
+import java.util.Optional;
 import java.util.Set;
 
 @NodeEntity
@@ -45,7 +47,7 @@ public class Organization {
     }
 
     public void updateFrom(Organization organization){
-        this.name = organization.name;
-        this.url = organization.url;
+        this.name = Optional.ofNullable(organization.name).orElse(this.name);
+        this.url = Optional.ofNullable(organization.url).orElse(this.url);
     }
 }

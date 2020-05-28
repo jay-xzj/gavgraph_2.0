@@ -6,6 +6,7 @@ import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 
 @NodeEntity
 public class License {
@@ -68,7 +69,7 @@ public class License {
     }
 
     public void updateFrom(License license){
-        this.name = license.name;
-        this.url = license.url;
+        this.name = Optional.ofNullable(license.name).orElse(this.name);
+        this.url = Optional.ofNullable(license.url).orElse(this.url);
     }
 }

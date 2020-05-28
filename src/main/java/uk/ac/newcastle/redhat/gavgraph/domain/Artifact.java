@@ -1,9 +1,12 @@
 package uk.ac.newcastle.redhat.gavgraph.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.neo4j.ogm.annotation.*;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -141,10 +144,10 @@ public class Artifact implements Serializable {
     }
 
     public void updateFrom(Artifact artifact){
-        this.groupId = artifact.groupId;
-        this.artifactId = artifact.artifactId;
-        this.version = artifact.version;
-        this.availability = artifact.availability;
-        this.scope = artifact.scope;
+        this.groupId = Optional.ofNullable(artifact.groupId).orElse(this.groupId);;
+        this.artifactId = Optional.ofNullable(artifact.artifactId).orElse(this.artifactId);
+        this.version = Optional.ofNullable(artifact.version).orElse(this.version);
+        this.availability = Optional.ofNullable(artifact.availability).orElse(this.availability);
+        this.scope = Optional.ofNullable(artifact.scope).orElse(this.scope);
     }
 }
