@@ -1,6 +1,7 @@
 # Gav-Graph-Management
 
-This project is built with Spring Boot 2 associated with Swagger 2, so when you run it, you can clearly find the rest APIs via the Swagger-UI which can be automatically opened in the browser when the embedded tomcat server started.
+This project is built with Spring Boot 2 associated with Swagger 2, so when you run it, you can clearly find the rest APIs via the Swagger-UI.
+ To do so, you only need to start the project and click this [link](http://localhost:9091) when you are useing `dev` configuration.
 
 
 ## Configuration
