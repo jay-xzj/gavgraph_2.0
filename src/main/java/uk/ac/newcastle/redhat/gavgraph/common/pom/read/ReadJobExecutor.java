@@ -26,7 +26,7 @@ public class ReadJobExecutor {
         BlockingQueue<String> strings = new LinkedBlockingQueue<>();
         try {
             while(pathQueue.size()>0){
-                executor.submit(new read.ReadJob(countDownLatch, new ReadTask(incrementId.incrementAndGet(),pathQueue.take())));
+                executor.submit(new ReadJob(countDownLatch, new ReadTask(incrementId.incrementAndGet(),pathQueue.take())));
             }
             //等待所有线程结束
             countDownLatch.await();
