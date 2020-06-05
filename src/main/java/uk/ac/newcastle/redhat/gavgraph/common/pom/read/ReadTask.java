@@ -22,7 +22,7 @@ public class ReadTask {
     }
 
     void execute(){
-        System.out.println("当前线程是："+Thread.currentThread().getName());
+        //System.out.println("当前线程是："+Thread.currentThread().getName());
         Model pomModel = null;
         try {
             File pom = new File(path);
@@ -30,10 +30,10 @@ public class ReadTask {
             FileReader fileReader = new FileReader(pom);
             pomModel = pomReader.read(fileReader);
             fileReader.close();
-            System.err.println("GAV INFO === "+ pomModel.getArtifactId() +" : "+
-                    pomModel.getGroupId() +" : "+
-                    pomModel.getVersion());
+            System.err.println("PATH === "+path+" GAV INFO === "+ pomModel.getArtifactId() +" : "+pomModel.getGroupId() +" : "+pomModel.getVersion());
         } catch (IOException | org.codehaus.plexus.util.xml.pull.XmlPullParserException xe) {
+
+            System.out.println("当前pom的path："+path);
             xe.printStackTrace();
         } finally {
             pomModel = null;

@@ -30,7 +30,7 @@ public class FindJobExecutor {
             //执行其他操作
             System.out.println("findString completed！");
             //关闭线程池
-            //executor.shutdown();
+            executor.shutdown();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

@@ -5,8 +5,6 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.apache.commons.io.IOUtils.closeQuietly;
-
 public class WriteCsv	 {
 
 	/** CSV file's separator for column changing */
@@ -68,7 +66,11 @@ public class WriteCsv	 {
 		if(isWriteHeaders){
 			// write out the header of the column
 			for (int i = 0; i < displayColNamesArr.length; i++) {
-				buf.append(displayColNamesArr[i]).append(CSV_COLUMN_SEPARATOR);
+				buf.append(displayColNamesArr[i]);
+				//TODO delete the last comma √
+				if(i!=displayColNamesArr.length-1) {
+					buf.append(CSV_COLUMN_SEPARATOR);
+				}
 			}
 			buf.append(CSV_RN);
 		}
@@ -77,7 +79,12 @@ public class WriteCsv	 {
 			// data out stream
 			for (int i = 0; i < data.size(); i++) {
 				for (int j = 0; j < matchColNamesMapArr.length; j++) {
-					buf.append(data.get(i).get(matchColNamesMapArr[j])).append(CSV_COLUMN_SEPARATOR);
+					//TODO if the value can be convert into number, covert it to string
+					//TODO delete the last comma √
+					buf.append(data.get(i).get(matchColNamesMapArr[j]));
+					if(matchColNamesMapArr.length-1 != j) {
+						buf.append(CSV_COLUMN_SEPARATOR);
+					}
 				}
 				buf.append(CSV_RN);
 			}
@@ -137,7 +144,8 @@ public class WriteCsv	 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			closeQuietly(out);
+			//closeQuietly(out);
+			out.close();
 		}
 	}
 
@@ -178,7 +186,7 @@ public class WriteCsv	 {
 	}
 
 	public static void main(String[] args) {
-		String fileName = "D:\\dissertation\\gavgraph\\src\\main\\resources\\static\\xml\\test.csv";
+		String fileName = "C:\\Users\\jayxu\\Desktop\\gavgraph-master\\src\\main\\resources\\static\\xml\\test.csv";
 
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
 		String[] matchColNamesMapArr = new String[] { "a", "b", "c" };
@@ -193,8 +201,8 @@ public class WriteCsv	 {
 		}
 
 		try {
-			writeCvs(fileName, data, displayColNamesArr, matchColNamesMapArr);
-		} catch (IOException e) {
+			writeCvs(fileName, data, displayColNamesArr, matchColNamesMapArr,false,false);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

@@ -15,7 +15,7 @@ public class ReadJob implements Callable<Object> {
 
     @Override
     public Object call() throws Exception {
-        System.out.println("当前的线程是："+Thread.currentThread() +", 当前的task是："+ task.getId());
+        //System.out.println("当前的线程是："+Thread.currentThread() +", 当前的task是："+ task.getId());
         //执行线程
         task.execute();
         //countDown自减

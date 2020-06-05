@@ -14,11 +14,17 @@ public class Process {
 
 
     //private static final String rootPath = "/Users/xuzhijie/Desktop/dissertation_project/more_poms";
-    private static final String rootPath = "/Users/xuzhijie/Documents/small_poms";
+    //private static final String rootPath = "/Users/xuzhijie/Documents/small_poms";
+    private static final String rootPath = "E:\\poms (2)";
+    //private static final String rootPath = "E:\\more_poms";
+    //private static final String rootPath = "E:\\small_poms";
+
 
     public static void main(String[] args) throws InterruptedException {
+        long start = System.currentTimeMillis();
+
         List<File> list = getDeeper3LevelFiles();
-        System.out.println("子文件夹个数：" + list.size());//8900多个文件夹
+        System.out.println("子文件夹个数：" + list.size());//8900多个文件夹  125553个文件夹
 
         List<FindTask> findPathTasks = new ArrayList<>();
         List<File> files = new ArrayList<>(100);
@@ -50,11 +56,19 @@ public class Process {
         BlockingQueue<String> sQueue = executors.execute();
         System.out.println("================== AFTER 生成String Q =================");
 
+        long end = System.currentTimeMillis();
+        float  scds = (float) ((end - start)/1000);
+        System.out.println("处理耗时："+scds+" 秒!");
+
         System.err.println("当前StringQueue里面共有："+sQueue.size()+" 条记录。");
 
         System.out.println("+++++++++  BEFORE 消耗 StringQueue  +++++++++");
+        long start1 = System.currentTimeMillis();
         ReadJobExecutor readJobExecutor = new ReadJobExecutor(latch, sQueue, executor);
         readJobExecutor.execute();
+        long end1 = System.currentTimeMillis();
+        double  scds1 = (double) ((end1 - start1)/1000);
+        System.out.println("处理耗时2："+scds1+" 秒!");
         System.out.println("+++++++++  AFTER 消耗 StringQueue +++++++++");
 
         System.err.println("当前StringQueue里面共有："+sQueue.size()+" 条记录。");

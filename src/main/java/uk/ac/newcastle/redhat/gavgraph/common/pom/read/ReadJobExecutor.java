@@ -31,7 +31,7 @@ public class ReadJobExecutor {
             //等待所有线程结束
             countDownLatch.await();
             //执行其他操作
-            System.out.println("findString completed！");
+            System.out.println("readString completed！");
             //关闭线程池
             //executor.shutdown();
         } catch (InterruptedException e) {
